@@ -5,6 +5,8 @@
  */
 package criador.de.personagem;
 
+import gui.JanelaAction;
+
 /**
  *
  * @author Wagner
@@ -15,7 +17,8 @@ public class CriadorDePersonagem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        JanelaAction janela = new JanelaAction();
+        janela.setVisible(true);
     }
     
 }
