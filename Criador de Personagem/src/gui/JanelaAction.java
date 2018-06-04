@@ -19,6 +19,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -36,6 +37,7 @@ public class JanelaAction extends JFrame implements ActionListener {
     private JComboBox cbActionSubclass2;
     private JLabel txtSelectedActionClass1;
     private JLabel txtSelectedActionClass2;
+    private JLabel txtSelectedSprite;
     
     public JanelaAction () {
         initGUI();
@@ -68,6 +70,7 @@ public class JanelaAction extends JFrame implements ActionListener {
         cbActionClass.addItem("Technique");
         cbActionSubclass1 = new JComboBox();
         cbActionSubclass2 = new JComboBox();
+        txtSelectedSprite = new JLabel("Nenhum arquivo selecionado");
         
         // Listener para 'fazer algo' sempre que for selecionada uma opção no JComboBox
         cbActionClass.addItemListener(new ItemListener() {
@@ -84,6 +87,7 @@ public class JanelaAction extends JFrame implements ActionListener {
         tfActionTitle.setBounds(350, 150, 350, 25);
         txtSprite.setBounds(200, 250, 150, 25);
         btnEscolherSprite.setBounds(350, 250, 150, 25);
+        txtSelectedSprite.setBounds(510, 250, 500, 25);
         txtActionClass.setBounds(200, 350, 150, 25);
         cbActionClass.setBounds(350, 350, 350, 25);
         txtActionSubclass1.setBounds(200, 450, 150, 25);
@@ -112,6 +116,7 @@ public class JanelaAction extends JFrame implements ActionListener {
         add(txtSelectedActionClass1);
         add(txtSelectedActionClass2);
         add(cbActionSubclass2);
+        add(txtSelectedSprite);
         
         btnEscolherSprite.addActionListener(this);
         btnNext.addActionListener(this);
@@ -122,6 +127,18 @@ public class JanelaAction extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == btnEscolherSprite) {
             System.out.println("CARREGAR SPRITE");
+            JFileChooser arquivo = new JFileChooser();
+            FileNameExtensionFilter filtroPDF = new FileNameExtensionFilter("Arquivos PNG", "png");  
+            arquivo.addChoosableFileFilter(filtroPDF);
+            arquivo.setAcceptAllFileFilterUsed(false);
+            if(arquivo.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+                System.out.println("Caminho: " + arquivo.getSelectedFile().getAbsolutePath());
+                txtSelectedSprite.setText(arquivo.getSelectedFile().getAbsolutePath());
+            }
+        }
+        else if (ae.getSource() == btnNext) {
+            //Verificar se está tudo preenchido, armazenar essas informações e avançar
+            System.out.println("NEXT");
         }
     }
 }
